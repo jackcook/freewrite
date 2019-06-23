@@ -1,0 +1,10 @@
+textarea {
+  border: none;
+  display: block;
+  font-family: "Avenir Next", Helvetica, sans-serif;
+  font-size: 18px;
+  height: 90vh;
+  margin: 10vh auto 0;
+  outline: none;
+  width: 80%;
+}

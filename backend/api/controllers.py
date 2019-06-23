@@ -35,8 +35,12 @@ def top_k_logits(logits, k):
         batch_mins = values[:, -1].view(-1, 1).expand_as(logits)
         return torch.where(logits < batch_mins, torch.ones_like(logits) * -1e10, logits)
 
-def sample_sequence(model, length, batch_size=1, context=None):
-    context = torch.tensor(context, device="cpu", dtype=torch.long).unsqueeze(0).repeat(batch_size, 1)
+def sample_sequence(model, length, start_token=None, batch_size=1, context=None):
+    if start_token is None:
+        context = torch.tensor(context, device="cpu", dtype=torch.long).unsqueeze(0).repeat(batch_size, 1)
+    else:
+        context = torch.full((batch_size, 1), start_token, device=device, dtype=torch.long)
+
     prev = context
     output = context
     past = None
@@ -52,14 +56,29 @@ def sample_sequence(model, length, batch_size=1, context=None):
 
 @mod_api.route("/continue", methods=["GET"])
 def continue_text():
-    context_tokens = enc.encode("He s")
-    out = sample_sequence(
-        model=model,
-        length=LENGTH,
-        context=context_tokens
-    )
+    try:
+        context = request.args.get("context")
+    except:
+        context = None
 
-    out = out[:, len(context_tokens):].tolist()
+    if context is None or len(context) == 0:
+        out = sample_sequence(
+            model=model,
+            length=LENGTH,
+            start_token=enc.encoder["<|endoftext|>"]
+        )
+
+        out = out[:, 1:].tolist()
+    else:
+        context_tokens = enc.encode(context)
+        out = sample_sequence(
+            model=model,
+            length=LENGTH,
+            context=context_tokens
+        )
+
+        out = out[:, len(context_tokens):].tolist()
+
     text = enc.decode(out[0])
 
     return jsonify({

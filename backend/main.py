@@ -1,9 +1,13 @@
 import os
 from flask import Flask, send_from_directory
+from flask_cors import CORS
+
 from api import mod_api
 
 app = Flask(__name__, static_folder="build/")
 app.register_blueprint(mod_api)
+
+CORS(app)
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
