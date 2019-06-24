@@ -1,0 +1,55 @@
+.WritingSearchPanel {
+  background: #b263f7;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-sizing: border-box;
+  height: 320px;
+  padding: 40px 24px 24px;
+  position: absolute;
+  transform: translateY(-100%);
+  width: 270px;
+  z-index: 100;
+
+  top: 0;
+  right: 5vw;
+}
+
+.WritingSearchPanel.visible {
+  animation-duration: 0.35s;
+  animation-name: pop-down;
+  animation-fill-mode: forwards;
+}
+
+.WritingSearchPanel.invisible {
+  animation-duration: 0.35s;
+  animation-name: pop-up;
+  animation-fill-mode: forwards;
+}
+
+@keyframes pop-down {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  75% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes pop-up {
+  0% {
+    transform: translateY(-16px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}

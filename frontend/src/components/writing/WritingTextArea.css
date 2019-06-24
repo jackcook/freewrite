@@ -1,0 +1,11 @@
+.WritingTextArea {
+  font-size: 18px;
+}
+
+.WritingTextArea span {
+  letter-spacing: 0.02em;
+}
+
+.WritingTextArea .placeholder {
+  color: gray;
+}

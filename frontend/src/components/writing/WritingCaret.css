@@ -1,0 +1,10 @@
+.WritingCaret {
+  background: #5655a4;
+  display: inline-block;
+  height: 18px;
+  width: 2px;
+}
+
+.WritingCaret.invisible {
+  background: rgba(0, 0, 0, 0);
+}

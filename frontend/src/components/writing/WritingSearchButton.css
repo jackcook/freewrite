@@ -1,0 +1,33 @@
+.WritingSearchButton {
+  cursor: pointer;
+  display: inline-block;
+  height: 28px;
+  float: right;
+  margin-top: 8px;
+  position: relative;
+  width: 28px;
+}
+
+.WritingSearchButton .round-part {
+  border: 5px solid gray;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  height: 80%;
+  position: absolute;
+  width: 80%;
+
+  top: 0;
+  left: 0;
+}
+
+.WritingSearchButton .stick-part {
+  background: gray;
+  height: 50%;
+  position: absolute;
+  transform: rotate(-45deg);
+  width: 5px;
+
+  bottom: 0;
+  right: 5px;
+}

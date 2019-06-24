@@ -1,0 +1,8 @@
+.WritingTitle {
+  display: inline-block;
+  margin: 0 auto 8px;
+}
+
+.WritingTitle:hover {
+  background: rgba(200, 200, 200, 0.5);
+}

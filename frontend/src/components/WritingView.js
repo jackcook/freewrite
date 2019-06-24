@@ -2,42 +2,56 @@ import React, { Component } from "react";
 
 import "./WritingView.css";
 import Api from "../api/api";
+import WritingSearchButton from "./writing/WritingSearchButton";
+import WritingSearchPanel from "./writing/WritingSearchPanel";
+import WritingTextArea from "./writing/WritingTextArea";
+import WritingTitle from "./writing/WritingTitle";
 
 class WritingView extends Component {
   constructor(props) {
     super(props);
 
-    this.textArea = React.createRef();
+    this.caret = React.createRef();
 
     this.state = {
-      textValue: ""
+      caretVisible: true
     };
 
-    this.onKeyDown = this.onKeyDown.bind(this);
+    this.handlePanelClose = this.handlePanelClose.bind(this);
+    this.handlePanelOpen = this.handlePanelOpen.bind(this);
+
+    setTimeout(() => {
+      this.caretInterval = setInterval(() => {
+        this.setState({
+          caretVisible: !this.state.caretVisible
+        });
+      }, 500);
+    }, 500);
   }
 
-  onKeyDown(e) {
-    clearTimeout(this.timeout);
-
+  handlePanelClose() {
     this.setState({
-      textValue: e.target.value
+      searchPanelVisible: false
     });
+  }
 
-    this.timeout = setTimeout(() => {
-      Api.continueText().then(response => {
-        console.log(response);
-
-        this.setState({
-          textValue: this.state.textValue + response.data.text
-        });
-      });
-    }, 2000);
+  handlePanelOpen() {
+    this.setState({
+      searchPanelVisible: true
+    });
   }
 
   render() {
     return (
-      <div className="WritingView">
-        <textarea placeholder="It was a dark and stormy night..." onChange={this.onKeyDown} ref={this.textArea} value={this.state.textValue} />
+      <div className="WritingView" onKeyDown={this.onKeyDown}>
+        <WritingSearchPanel
+          visible={this.state.searchPanelVisible}
+          onCloseClick={this.handlePanelClose} />
+        <div className="top">
+          <WritingTitle />
+          <WritingSearchButton onClick={this.handlePanelOpen} />
+        </div>
+        <WritingTextArea />
       </div>
     );
   }
