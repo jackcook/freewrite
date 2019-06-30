@@ -1,8 +1,10 @@
 .WritingCaret {
   background: #5655a4;
   display: inline-block;
-  height: 18px;
+  height: 21px;
+  margin: 0 -1px 4px;
   width: 2px;
+  vertical-align: bottom;
 }
 
 .WritingCaret.invisible {

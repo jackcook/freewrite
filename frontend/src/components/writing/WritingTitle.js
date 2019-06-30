@@ -5,7 +5,7 @@ class WritingTitle extends Component {
   render() {
     return (
       <h1 className="WritingTitle">
-        Life of an Ambulance
+        Short Story
       </h1>
     );
   }
