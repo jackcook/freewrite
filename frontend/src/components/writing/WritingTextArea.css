@@ -1,5 +1,6 @@
 .WritingTextArea {
   font-size: 18px;
+  white-space: pre;
 }
 
 .WritingTextArea span {
